@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -35,6 +36,11 @@ public class FeedbackServlet extends HttpServlet {
             String subject = request.getParameter("subject");
             String comments = request.getParameter("comments");
             // store feedback in the DB - display their feedback once submitted
+
+            name = StringEscapeUtils.escapeHtml(name);
+            email = StringEscapeUtils.escapeHtml(email);
+            subject = StringEscapeUtils.escapeHtml(subject);
+            comments = StringEscapeUtils.escapeHtml(comments);
 
             String feedbackId = OperationsUtil.sendFeedback(name, email, subject, comments);
             if (feedbackId != null) {

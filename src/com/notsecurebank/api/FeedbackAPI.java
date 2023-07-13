@@ -9,6 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.wink.json4j.JSONException;
@@ -53,6 +54,11 @@ public class FeedbackAPI extends NotSecureBankAPI {
             LOG.error(e.toString());
             return Response.status(400).entity("{\"Error\": \"Body does not contain all the correct attributes\"}").build();
         }
+
+        name = StringEscapeUtils.escapeHtml(name);
+        email = StringEscapeUtils.escapeHtml(email);
+        subject = StringEscapeUtils.escapeHtml(subject);
+        comments = StringEscapeUtils.escapeHtml(comments);
 
         String feedbackId = OperationsUtil.sendFeedback(name, email, subject, comments);
 
