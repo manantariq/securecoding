@@ -11,12 +11,19 @@
 	<jsp:include page="toc.jspf"/>
     <td valign="top" colspan="3" class="bb">
 		<%		
-		java.lang.String content = request.getParameter("content");
+		/*java.lang.String content = request.getParameter("content");
 		if (content == null)
 			content = "default.htm";
 		else
 			content = request.getParameter("content");
-			content = "static/"+content;
+			content = "static/"+content;*/
+		String content = request.getParameter("content");
+		if (content == null || content.isEmpty()) {
+			content = "default.htm";
+		} else {
+			content = content.replaceAll("[^a-zA-Z0-9\\-]", "");
+			content = "static/" + content;
+		}
 		%>
 		
 		<%  try { %>
