@@ -80,9 +80,10 @@ public class AdminAPI extends NotSecureBankAPI {
 
         // Checking if user is logged in
 
-        if (!ServletUtil.isLoggedin(request)) {
+        Object admObj = request.getSession().getAttribute(ServletUtil.SESSION_ATTR_ADMIN_KEY);
+        if (!ServletUtil.isLoggedin(request) || Objects.isNull(admObj) || !admObj.equals(ServletUtil.SESSION_ATTR_ADMIN_VALUE)) {
             String response = "{\"loggedIn\" : \"false\"}";
-            return Response.status(400).entity(response).build();
+            return Response.status(401).entity(response).build();
         }
 
         String firstname;
