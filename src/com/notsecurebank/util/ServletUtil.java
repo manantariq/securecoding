@@ -247,6 +247,11 @@ public class ServletUtil {
     public static boolean isPreApprovedForGoldVisa(HttpServletRequest request) {
         LOG.debug("isPreApprovedForGoldVisa");
 
+        /*
+            To resolve this vulnerability, we need to add an attribute called 'isPreApprovedForGoldVisa' to each user
+            in our USER table. This attribute can have a boolean value of true or false. By utilizing this attribute
+            from the User table, we can determine whether the current user is pre-approved for a Gold Visa card or not.
+         */
         boolean isPreApprovedForGoldVisa = false;
         Cookie[] cookies = request.getCookies();
         if (cookies != null && cookies.length > 0) {
