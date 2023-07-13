@@ -83,6 +83,7 @@
 		    </td>
 		  </tr>
 		</table>
+			<input type="hidden" name="csrfToken" value="<%= request.getSession().getAttribute("csrfToken") %>) %>">
 		</form>
 		
 		</div>       

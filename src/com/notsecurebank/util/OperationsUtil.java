@@ -2,9 +2,11 @@ package com.notsecurebank.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.LogManager;
@@ -24,6 +26,14 @@ public class OperationsUtil {
 
         User user = ServletUtil.getUser(request);
         String userName = user.getUsername();
+
+        HttpSession session = request.getSession(false);
+        String requestToken = request.getParameter("csrfToken");
+        //Assumed that the csrf token has already been saved in session
+        String sessionToken = (String) session.getAttribute("csrfToken");
+        if (sessionToken.equals(requestToken)) {
+            return "Error CSRF token not valid";
+        }
 
         try {
             Long accountId = -1L;
