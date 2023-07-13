@@ -48,11 +48,11 @@ public class OperationsUtil {
                 }
             }
 
-            Account[] cookieAccounts = null;
-            if (notSecureBankCookie == null)
+            Account[] cookieAccounts = user.getAccounts();
+            /*if (notSecureBankCookie == null)
                 cookieAccounts = user.getAccounts();
             else
-                cookieAccounts = Account.fromBase64List(notSecureBankCookie.getValue());
+                cookieAccounts = Account.fromBase64List(notSecureBankCookie.getValue());*/
 
             try {
                 accountId = Long.parseLong(accountIdString);
